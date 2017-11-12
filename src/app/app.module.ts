@@ -7,6 +7,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+//here
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabase } from "angularfire2/database";
+import { AngularFireModule } from 'angularfire2';
+import { environment } from "../environments/environment";
+import { FirebaseProvider } from '../providers/firebase/firebase'; //add environment must be like 'export cons'
+
 @NgModule({
   declarations: [
     MyApp,
@@ -14,6 +21,8 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
+    //add this
+    AngularFireModule.initializeApp(environment.firebase),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -24,7 +33,9 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    AngularFireDatabase,  //and this  
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseProvider,
   ]
 })
 export class AppModule {}

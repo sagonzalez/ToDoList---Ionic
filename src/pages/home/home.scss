@@ -1,3 +1,21 @@
 page-home {
+    .complete{
+        text-decoration: line-through;
+        // color:lightgrey;
+    }
+    .bg-danger{
+        background-color:tomato;
+    }
+    .bg-terminados2{
+        background-color:#a0cfd6;
+    }
+ 
+    .bg-content{
+        background-color:#353639;
+    }
+    .input{
+        color:white;
+        font-weight: bold;
 
+    }
 }

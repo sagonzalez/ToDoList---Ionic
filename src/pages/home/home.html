@@ -6,9 +6,45 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="bg-content">
+  <ion-item class="bg-content">
+    <ion-label floating class="input">Nueva tarea</ion-label>
+    <ion-input type="text" class="input" [(ngModel)]="newTask.name" (keypress)="addTask($event)"></ion-input>
+  </ion-item>
+  <ion-card>
+    <ion-card-header class="bg-danger">
+      Tareas pendientes
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list inset>
+      <div *ngFor="let task of tasks | async">
+          <ion-item (press)="removeTask(task)" *ngIf="task.status == false">
+            <ion-label *ngIf="task.status == false">{{task.name}}</ion-label>
+            <ion-checkbox *ngIf="task.status == false" color="secondary" checked="false" (click)="updateTask(task)"></ion-checkbox>
+    
+            <!-- <input type="text" [(ngModel)]="task.name"> -->
+            <!-- <button item-left ion-button color="danger" title="Eliminar tarea" (click)="removeTask(task)"><ion-icon name="trash"></ion-icon></button> -->
+            <!-- <button item-left ion-button color="primary" title="Actualizar tarea"  (click)="updateTask(task.$key, task.name)"><ion-icon name="refresh-circle"></ion-icon></button>   -->
+          </ion-item>
+        </div>
+      </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+  <ion-card>
+    <ion-card-header class="bg-terminados2">
+      Tareas terminadas
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list inset>
+            <div *ngFor="let task of tasks | async" (press)="removeTask(task)" (ionSwipe)="swipeEvent(task)">
+              <ion-item (press)="removeTask(task)" *ngIf="task.status == true">
+                <ion-label *ngIf="task.status == true" class="complete">{{task.name}}</ion-label>
+                <ion-checkbox *ngIf="task.status == true" color="primary" checked="true" (click)="updateTask(task)"></ion-checkbox>
+              </ion-item>
+            </div>
+          </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>
